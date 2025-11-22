@@ -5,18 +5,18 @@ import itemData from "../data/items";
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-  };
-
   const appClass = isDarkMode ? "App dark" : "App light";
+
+  function handleDarkModeClick() {
+    setIsDarkMode((isDarkMode) => !isDarkMode);
+  }
 
   return (
     <div className={appClass}>
       <header>
         <h2>Shopster</h2>
-        <button onClick={toggleDarkMode}>
-          {isDarkMode ? "Light" : "Dark"} Mode
+        <button onClick={handleDarkModeClick}>
+          {isDarkMode ? "Dark" : "Light"} Mode
         </button>
       </header>
       <ShoppingList items={itemData} />

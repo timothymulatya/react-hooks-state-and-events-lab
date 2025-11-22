@@ -4,22 +4,25 @@ import Item from "./Item";
 function ShoppingList({ items }) {
   const [selectedCategory, setSelectedCategory] = useState("All");
 
-  const handleCategoryChange = (event) => {
+  function handleCategoryChange(event) {
     setSelectedCategory(event.target.value);
-  };
+  }
 
-  const filteredItems =
-    selectedCategory === "All"
-      ? items
-      : items.filter((item) => item.category === selectedCategory);
+  const itemsToDisplay = items.filter((item) => {
+    if (selectedCategory === "All") {
+      return true;
+    } else {
+      return item.category === selectedCategory;
+    }
+  });
 
   return (
     <div className="ShoppingList">
       <div className="Filter">
         <select
           name="filter"
-          value={selectedCategory}
           onChange={handleCategoryChange}
+          value={selectedCategory}
         >
           <option value="All">Filter by category</option>
           <option value="Produce">Produce</option>
@@ -28,7 +31,7 @@ function ShoppingList({ items }) {
         </select>
       </div>
       <ul className="Items">
-        {filteredItems.map((item) => (
+        {itemsToDisplay.map((item) => (
           <Item key={item.id} name={item.name} category={item.category} />
         ))}
       </ul>
